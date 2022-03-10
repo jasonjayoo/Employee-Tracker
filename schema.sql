@@ -74,3 +74,8 @@ VALUE ("Jeoffrey", "Batangan", 5, 6);
 INSERT INTO employee (first_name, last_name, manager_id, roles_id)
 VALUE ("Jackie", "Chan", 2, 7);
 
+-- SELECTING FOR CREATING 
+
+SELECT * FROM department;
+SELECT * FROM roles;
+SELECT * FROM employee;
