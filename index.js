@@ -252,3 +252,33 @@ function viewAllDepartments() {
     }
   );
 }
+
+//Update Employee  --- debugged -- error after department is selected
+function updateEmployee() {
+  connection.query(
+    "SELECT employee.last_name, roles.title FROM employee JOIN roles ON employee.roles_id = roles.id;",
+    function (err, res) {
+      // console.log(res)
+      if (err) throw err;
+      console.log(res);
+      inquirer
+        .prompt([
+          {
+            name: "lastname",
+            type: "rawlist",
+            choices: function () {
+              let lastname = [];
+              for (let i = 0; i < res.length; i++) {
+                lastname.push(res[i].last_name);
+              }
+              return lastname;
+            },
+            message: "What is the Employee's last name? ",
+          },
+          {
+            name: "roles",
+            type: "rawlist",
+            message: "What is the Employees new title? ",
+            choices: selectRole(),
+          },
+        ])
