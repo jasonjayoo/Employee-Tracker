@@ -228,3 +228,15 @@ function viewAllEmployees() {
     }
   );
 }
+
+//View All Roles
+function viewAllRoles() {
+  connection.query(
+    "SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles LEFT JOIN department on roles.department_id = department.id;",
+    function (err, res) {
+      if (err) throw err;
+      console.table(res);
+      init();
+    }
+  );
+}
