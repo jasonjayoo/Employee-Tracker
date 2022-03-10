@@ -216,3 +216,15 @@ function addDepartment() {
       );
     });
 }
+
+//View All Employees
+function viewAllEmployees() {
+  connection.query(
+    "SELECT employee.roles_id, employee.first_name, employee.last_name, roles.title, roles.salary, department.name, CONCAT(e.first_name, ' ' ,e.last_name) AS Manager FROM employee INNER JOIN roles on roles.id = employee.roles_id INNER JOIN department on department.id = roles.department_id left join employee e on employee.manager_id = e.id;",
+    function (err, res) {
+      if (err) throw err;
+      console.table(res);
+      init();
+    }
+  );
+}
