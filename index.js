@@ -123,3 +123,29 @@ function addEmployee() {
       );
     });
 }
+
+//Select Role Quieries Role Title for Add Employee Prompt
+let rolesArray = [];
+function selectRole() {
+  connection.query("SELECT * FROM roles", function (err, res) {
+    if (err) throw err;
+    for (let i = 0; i < res.length; i++) {
+      rolesArray.push(res[i].title);
+    }
+  });
+  return rolesArray;
+}
+//Select Role Quieries The Managers for Add Employee Prompt
+let managersArray = [];
+function selectManager() {
+  connection.query(
+    "SELECT first_name, last_name FROM employee WHERE manager_id IS NULL",
+    function (err, res) {
+      if (err) throw err;
+      for (let i = 0; i < res.length; i++) {
+        managersArray.push(res[i].first_name);
+      }
+    }
+  );
+  return managersArray;
+}
