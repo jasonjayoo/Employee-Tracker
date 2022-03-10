@@ -82,4 +82,44 @@ function init() {
     });
 }
 
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        name: "firstname",
+        type: "input",
+        message: "Enter their first name ",
+      },
+      {
+        name: "lastname",
+        type: "input",
+        message: "Enter their last name ",
+      },
+      {
+        name: "roles",
+        type: "list",
+        message: "What is their role? ",
+        choices: selectRole(),
+      },
+      {
+        name: "choice",
+        type: "rawlist",
+        message: "Whats their managers name?",
+        choices: selectManager(),
+      },
+    ])
+    .then(function (val) {
+      let rolesId = selectRole().indexOf(val.roles) + 1;
+      let managerId = selectManager().indexOf(val.choice) + 1;
+      connection.query(
+        "INSERT INTO employee SET first_name = ?, last_name = ?, manager_id = ?, roles_id = ?",
+        [val.firstname, val.lastname, managerId, rolesId ],
 
+        function (err) {
+          if (err) throw err;
+          console.table(val);
+          init();
+        }
+      );
+    });
+}
