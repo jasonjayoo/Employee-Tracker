@@ -1,4 +1,5 @@
---CREATING OUR DATABASE 
+
+
 DROP DATABASE IF EXISTS employee_trackerDB;
 
 CREATE DATABASE employee_trackerDB;
@@ -11,7 +12,6 @@ CREATE TABLE department (
   name VARCHAR(30)
  
 );
-
 -- ROLE TABLE 
 CREATE TABLE roles (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -20,7 +20,6 @@ CREATE TABLE roles (
   department_id INT,
   FOREIGN KEY (department_id) REFERENCES department(id)
 );
-
 -- EMPLOYEE TABLE 
 CREATE TABLE employee (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -32,3 +31,13 @@ CREATE TABLE employee (
   FOREIGN KEY (manager_id) REFERENCES employee(id)
 
 );
+
+-- DEPARTMENT SEEDS 
+INSERT INTO department (id, name)
+VALUE (1, "Sales");
+INSERT INTO department (id, name)
+VALUE (2, "Engineering");
+INSERT INTO department (id, name)
+VALUE (3, "Finance");
+INSERT INTO department (id, name)
+VALUE (4, "Marketing");

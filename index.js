@@ -45,9 +45,10 @@ function init() {
           "Add A Role?",
           "Add A Department?",
           "View all Employees?",
-          "View all Employees by their Roles?",
-          "View all Employees by Departments?",
+          "View all Roles?",
+          "View all Departments?",
           "Update an Employee?",
+          "Exit",
         ],
       },
     ])
@@ -65,18 +66,20 @@ function init() {
         case "View all Employees?":
           viewAllEmployees();
           break;
-        case "View all Employees by their Roles?":
+        case "View all Roles?":
           viewAllRoles();
           break;
-        case "View all Employees by Departments":
+        case "View all Departments?":
           viewAllDepartments();
           break;
         case "Update an Employee?":
           updateEmployee();
           break;
-        default:
+        case "Exit":
+          init();
           break;
       }
     });
 }
+
 
