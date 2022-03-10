@@ -149,3 +149,45 @@ function selectManager() {
   );
   return managersArray;
 }
+
+//Add Employee Role
+function addRole() {
+  connection.query(
+    "SELECT roles.department_id AS Department, roles.title AS Title, roles.salary AS Salary FROM roles",
+    function (err, res) {
+      inquirer
+        .prompt([
+          {
+            name: "Department",
+            type: "input",
+            message: "Enter Dept ID Number? [ 1 = Sales, 2 = Engineering, 3 = Finance, 4 = Marketing] * MORE Depts @ View all Departments.]",
+          },
+          {
+            name: "Title",
+            type: "input",
+            message: "What is the title of the role?",
+          },
+          {
+            name: "Salary",
+            type: "input",
+            message: "What is the salary?",
+          },
+        ])
+        .then(function (res) {
+          connection.query(
+            "INSERT INTO roles SET ?",
+            {
+              department_id: res.Department,
+              title: res.Title,
+              salary: res.Salary,
+            },
+            function (err) {
+              if (err) throw err;
+              console.table(res);
+              init();
+            }
+          );
+        });
+    }
+  );
+}
