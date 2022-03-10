@@ -58,4 +58,19 @@ VALUE ("Sales Associate", 45000, 1);
 INSERT INTO roles (title, salary, department_id)
 VALUE ("Accountant", 95000, 3);
 
+-- EMPLOYEE SEEDS -------
+INSERT INTO employee (first_name, last_name, manager_id, roles_id)
+VALUE ("Jason", "Yoo", null, 1);
+INSERT INTO employee (first_name, last_name, manager_id, roles_id)
+VALUE ("Marcus", "Lewis", null, 2);
+INSERT INTO employee (first_name, last_name, manager_id, roles_id)
+VALUE ("Greg","Muraoka",null,3);
+INSERT INTO employee (first_name, last_name, manager_id, roles_id)
+VALUE ("Jane", "Tiglao", 1, 4);
+INSERT INTO employee (first_name, last_name, manager_id, roles_id)
+VALUE ("Tyler", "Welker", 3, 5);
+INSERT INTO employee (first_name, last_name, manager_id, roles_id)
+VALUE ("Jeoffrey", "Batangan", 5, 6);
+INSERT INTO employee (first_name, last_name, manager_id, roles_id)
+VALUE ("Jackie", "Chan", 2, 7);
 
