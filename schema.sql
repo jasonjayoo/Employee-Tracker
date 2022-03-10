@@ -41,3 +41,21 @@ INSERT INTO department (id, name)
 VALUE (3, "Finance");
 INSERT INTO department (id, name)
 VALUE (4, "Marketing");
+
+-- EMPLOYEE ROLE SEEDS 
+INSERT INTO roles (title, salary, department_id)
+VALUE ("Marketing Manager", 110000, 4);
+INSERT INTO roles (title, salary, department_id)
+VALUE ("Marketing Associate", 80000, 4);
+INSERT INTO roles (title, salary, department_id)
+VALUE ("Lead Engineer", 150000, 2);
+INSERT INTO roles (title, salary, department_id)
+VALUE ("Software Engineer", 120000, 2);
+INSERT INTO roles (title, salary, department_id)
+VALUE ("Sales Manager", 90000, 1);
+INSERT INTO roles (title, salary, department_id)
+VALUE ("Sales Associate", 45000, 1);
+INSERT INTO roles (title, salary, department_id)
+VALUE ("Accountant", 95000, 3);
+
+
