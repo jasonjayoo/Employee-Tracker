@@ -282,3 +282,18 @@ function updateEmployee() {
             choices: selectRole(),
           },
         ])
+        .then(function (val) {
+          let rolesId = selectRole().indexOf(val.roles) + 1;
+          connection.query(
+            "UPDATE employee SET roles_id = ? WHERE last_name = ?",
+            [rolesId, val.lastname],
+            function (err) {
+              if (err) throw err;
+              console.table(val);
+              init();
+            }
+          );
+        });
+    }
+  );
+}
