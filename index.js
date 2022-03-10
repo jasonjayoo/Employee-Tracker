@@ -1,3 +1,4 @@
+// requires all installed programs
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
 const mysql = require("mysql2");
@@ -11,12 +12,14 @@ const connection = mysql.createConnection({
   database: "employee_trackerDB",
 });
 
+// initials the application
 connection.connect(function (err) {
   if (err) throw err;
   console.log("connected");
   init();
 });
 
+// function to initialize the application with question prompts
 function init() {
   inquirer
     .prompt([
@@ -66,6 +69,7 @@ function init() {
     });
 }
 
+// function to add new employees to existing database
 function addEmployee() {
   inquirer
     .prompt([
@@ -108,7 +112,7 @@ function addEmployee() {
     });
 }
 
-//Select Role Quieries Role Title for Add Employee Prompt
+//select role quieries Role Title for addEmployee function
 let rolesArray = [];
 function selectRole() {
   connection.query("SELECT * FROM roles", function (err, res) {
@@ -119,7 +123,7 @@ function selectRole() {
   });
   return rolesArray;
 }
-//Select Role Quieries The Managers for Add Employee Prompt
+//select role quieries for Managers to addEmployee function
 let managersArray = [];
 function selectManager() {
   connection.query(
@@ -242,7 +246,6 @@ function updateEmployee() {
   connection.query(
     "SELECT employee.last_name, roles.title FROM employee JOIN roles ON employee.roles_id = roles.id;",
     function (err, res) {
-      // console.log(res)
       if (err) throw err;
       console.log(res);
       inquirer
