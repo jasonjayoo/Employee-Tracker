@@ -1,10 +1,5 @@
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
-
-// const connections = require("./db/connection.js");
-// const schema = require("./db/schema.sql");
-// const seeds = require("./db/seeds.sql");
-
 const mysql = require("mysql2");
 
 // create the connection to database
@@ -15,17 +10,6 @@ const connection = mysql.createConnection({
   password: "root",
   database: "employee_trackerDB",
 });
-
-// let sql = 'CREATE DATABASE employeetracker';
-
-// connection.query(sql, (err, result) => {
-//     if(err) throw(err)
-//     console.log(result);
-// });
-
-// let employees = [];
-// let roles = [];
-// let departments = [];
 
 connection.connect(function (err) {
   if (err) throw err;

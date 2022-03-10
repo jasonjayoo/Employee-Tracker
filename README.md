@@ -40,7 +40,7 @@ Build a command-line application from scratch to manage a company's employee dat
 
 ## Video:
 
-[![Video-Link](images/youtubescreenshot.png)](https://youtu.be/6Ix7aEEgWW0)
+[![Video-Link](images/youtubescreenshot.png)](https://youtu.be/Ekii66yDjfs)
   
   
 <br> 
