@@ -103,6 +103,14 @@ Once downloaded, open the file in VS Code.
 
 <br>
 
+[Screenshot9](images/Screenshot9.png)  "Update Employee Manager - Jane Tiglao new manager set to Jason Yoo"
+<img src="images/Screenshot9.png">
+
+<br>
+
+[Screenshot10](images/Screenshot10.png)  "View employees that report to manager Marcus Lewis"
+<img src="images/Screenshot10.png">
+
 
 <br>
 <br>

@@ -301,54 +301,61 @@ function updateEmployee() {
 
 // function to update an employees manager
 function updateEmployeeManagers() {
-  connection.query("SELECT * FROM employee;", function (err, res) {
-    if (err) throw err;
-    console.log(res);
-    inquirer
-      .prompt([
-        {
-          name: "lastname",
-          type: "rawlist",
-          choices: function () {
-            let lastname = [];
-            for (let i = 0; i < res.length; i++) {
-              lastname.push(res[i].last_name);
+  connection.query(
+    "SELECT * FROM employee;",
+    function (err, res) {
+      if (err) throw err;
+      console.log(res);
+      inquirer
+        .prompt([
+          {
+            name: "lastname",
+            type: "rawlist",
+            choices: function () {
+              let lastname = [];
+              for (let i = 0; i < res.length; i++) {
+                lastname.push(res[i].last_name);
+              }
+              return lastname;
+            },
+            message: "What is the Employee's last name? ",
+          },
+          {
+            name: "manager",
+            type: "rawlist",
+            message: "Who is the Employee's new manager? ",
+            choices: function () {
+              let lastname = res.map(({id, last_name})=>({
+                name: `${last_name}`,
+                value: id
+              }));
+              // for (let i = 0; i < res.length; i++) {
+              //   lastname.push(res[i].last_name);
+              // }
+              return lastname;
+            },
+          },
+        ])
+        .then(function (val) {
+          //let rolesId = selectRole().indexOf(val.manager) + 1;
+          connection.query(
+            "UPDATE employee SET manager_id = ? WHERE last_name = ?",
+            [val.manager, val.lastname],
+            function (err) {
+              if (err) throw err;
+              console.table(val);
+              init();
             }
-            return lastname;
-          },
-          message: "What is the Employee's last name? ",
-        },
-        {
-          name: "manager",
-          type: "rawlist",
-          message: "Who is the Employee's new manager? ",
-          choices: function () {
-            let lastname = res.map(({ id, last_name }) => ({
-              name: `${last_name}`,
-              value: id,
-            }));npm 
-            return lastname;
-          },
-        },
-      ])
-      .then(function (val) {
-        //let rolesId = selectRole().indexOf(val.manager) + 1;
-        connection.query(
-          "UPDATE employee SET manager_id = ? WHERE last_name = ?",
-          [val.manager, val.lastname],
-          function (err) {
-            if (err) throw err;
-            console.table(val);
-            init();
-          }
-        );
-      });
-  });
+          );
+        });
+    }
+  );
 }
 
 // function to update an employee by their manager
-function viewEmployeeByManager() {
-  connection.query("SELECT * FROM employee;", function (err, res) {
+function viewEmployeeByManager(){
+  connection.query("SELECT * FROM employee;",
+  function (err, res) {
     if (err) throw err;
     //console.log(res);
     inquirer
@@ -358,10 +365,13 @@ function viewEmployeeByManager() {
           type: "rawlist",
           message: "Who is the Employee's new manager? ",
           choices: function () {
-            let lastname = res.map(({ id, last_name }) => ({
+            let lastname = res.map(({id, last_name})=>({
               name: `${last_name}`,
-              value: id,
+              value: id
             }));
+            // for (let i = 0; i < res.length; i++) {
+            //   lastname.push(res[i].last_name);
+            // }
             return lastname;
           },
         },
@@ -378,10 +388,12 @@ function viewEmployeeByManager() {
           }
         );
       });
-  });
+  })
+  
+  
 }
 
-// function to view employees by departments
+// function to view employees by departments 
 // function viewEmployeesByDepartment(){
 //   connection.query("SELECT * FROM roles;",
 //   function (err, res) {
@@ -418,7 +430,8 @@ function viewEmployeeByManager() {
 //         );
 //       });
 //   })
-
+  
+  
 // }
 
 // // function to delete departments roles and employees
