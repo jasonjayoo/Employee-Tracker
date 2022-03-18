@@ -35,6 +35,10 @@ function init() {
           "View all Roles?",
           "View all Departments?",
           "Update an Employee?",
+          "Update Employee Managers?",
+          "View Employees by Manager?",
+          // "View Employees by Departments?",
+          // "Delete Departments, Roles, and Employees",
           "Exit",
         ],
       },
@@ -62,6 +66,18 @@ function init() {
         case "Update an Employee?":
           updateEmployee();
           break;
+        case "Update Employee Managers?":
+          updateEmployeeManagers();
+          break;
+        case "View Employees by Manager?":
+          viewEmployeeByManager();
+          break;
+        // case "View Employees by Departments?":
+        //   viewEmployeesByDepartment();
+        //   break;
+        // case "Delete Departments, Roles, and Employees":
+        //   deleteDepartmentsRolesEmployees();
+        //   break;
         case "Exit":
           init();
           break;
@@ -101,7 +117,7 @@ function addEmployee() {
       let managerId = selectManager().indexOf(val.choice) + 1;
       connection.query(
         "INSERT INTO employee SET first_name = ?, last_name = ?, manager_id = ?, roles_id = ?",
-        [val.firstname, val.lastname, managerId, rolesId ],
+        [val.firstname, val.lastname, managerId, rolesId],
 
         function (err) {
           if (err) throw err;
@@ -148,7 +164,8 @@ function addRole() {
           {
             name: "Department",
             type: "input",
-            message: "Enter Dept ID Number? [ 1 = Sales, 2 = Engineering, 3 = Finance, 4 = Marketing] * MORE Depts @ View all Departments.]",
+            message:
+              "Enter Dept ID Number? [ 1 = Sales, 2 = Engineering, 3 = Finance, 4 = Marketing] * MORE Depts @ View all Departments.]",
           },
           {
             name: "Title",
@@ -231,14 +248,11 @@ function viewAllRoles() {
 
 //View All Employees By Departments --- debugged -- error - not rendering
 function viewAllDepartments() {
-  connection.query(
-    "SELECT * FROM department;",
-    function (err, res) {
-      if (err) throw err;
-      console.table(res);
-      init();
-    }
-  );
+  connection.query("SELECT * FROM department;", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
 }
 
 //Update Employee  --- debugged -- error after department is selected
@@ -284,3 +298,130 @@ function updateEmployee() {
     }
   );
 }
+
+// function to update an employees manager
+function updateEmployeeManagers() {
+  connection.query("SELECT * FROM employee;", function (err, res) {
+    if (err) throw err;
+    console.log(res);
+    inquirer
+      .prompt([
+        {
+          name: "lastname",
+          type: "rawlist",
+          choices: function () {
+            let lastname = [];
+            for (let i = 0; i < res.length; i++) {
+              lastname.push(res[i].last_name);
+            }
+            return lastname;
+          },
+          message: "What is the Employee's last name? ",
+        },
+        {
+          name: "manager",
+          type: "rawlist",
+          message: "Who is the Employee's new manager? ",
+          choices: function () {
+            let lastname = res.map(({ id, last_name }) => ({
+              name: `${last_name}`,
+              value: id,
+            }));npm 
+            return lastname;
+          },
+        },
+      ])
+      .then(function (val) {
+        //let rolesId = selectRole().indexOf(val.manager) + 1;
+        connection.query(
+          "UPDATE employee SET manager_id = ? WHERE last_name = ?",
+          [val.manager, val.lastname],
+          function (err) {
+            if (err) throw err;
+            console.table(val);
+            init();
+          }
+        );
+      });
+  });
+}
+
+// function to update an employee by their manager
+function viewEmployeeByManager() {
+  connection.query("SELECT * FROM employee;", function (err, res) {
+    if (err) throw err;
+    //console.log(res);
+    inquirer
+      .prompt([
+        {
+          name: "manager",
+          type: "rawlist",
+          message: "Who is the Employee's new manager? ",
+          choices: function () {
+            let lastname = res.map(({ id, last_name }) => ({
+              name: `${last_name}`,
+              value: id,
+            }));
+            return lastname;
+          },
+        },
+      ])
+      .then(function (val) {
+        //let rolesId = selectRole().indexOf(val.manager) + 1;
+        connection.query(
+          "SELECT * FROM employee WHERE manager_id = ?;",
+          [val.manager],
+          function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            init();
+          }
+        );
+      });
+  });
+}
+
+// function to view employees by departments
+// function viewEmployeesByDepartment(){
+//   connection.query("SELECT * FROM roles;",
+//   function (err, res) {
+//     if (err) throw err;
+//     //console.log(res);
+//     inquirer
+//       .prompt([
+//         {
+//           name: "department_id",
+//           type: "rawlist",
+//           message: "What Department are you looking for? ",
+//           choices: function () {
+//             let rolesId = res.map(({roles_id})=>({
+//               name: `${roles_id}`,
+//               value: id
+//             }));
+//             // for (let i = 0; i < res.length; i++) {
+//             //   lastname.push(res[i].last_name);
+//             // }
+//             return rolesId;
+//           },
+//         },
+//       ])
+//       .then(function (val) {
+//         //let rolesId = selectRole().indexOf(val.manager) + 1;
+//         connection.query(
+//           "SELECT * FROM deparment WHERE department_id = ?;",
+//           [val.department],
+//           function (err, res) {
+//             if (err) throw err;
+//             console.table(res);
+//             init();
+//           }
+//         );
+//       });
+//   })
+
+// }
+
+// // function to delete departments roles and employees
+// function deleteDepartmentsRolesEmployees(){
+//   connection.query()
+// }
