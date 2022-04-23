@@ -1,6 +1,6 @@
 # Employee-Tracker
 
-(Homework - 12: MySQL: Employee Tracker)
+(MySQL: Employee Tracker)
 
 
 <br>
@@ -12,6 +12,7 @@
 ## Description:
 
 Build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.
+
 <br>
 <br>
 
